@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Results for {{ query.case_type }} {{ query.case_number }}/{{ query.filing_year }}</h2>
+  <p>Source: <a href="{{ source_url }}" target="_blank">Open on court site</a></p>
+
+  <h3>Parties</h3>
+  <dl>
+    <dt>Petitioner</dt><dd>{{ parsed.petitioner or '—' }}</dd>
+    <dt>Respondent</dt><dd>{{ parsed.respondent or '—' }}</dd>
+  </dl>
+
+  <h3>Dates</h3>
+  <dl>
+    <dt>Filing</dt><dd>{{ parsed.filing_date or '—' }}</dd>
+    <dt>Next Hearing</dt><dd>{{ parsed.next_hearing or '—' }}</dd>
+  </dl>
+
+  <h3>Latest Orders / Judgments</h3>
+  {% if parsed.orders %}
+    <ul>
+      {% for o in parsed.orders[:5] %}
+        <li>
+          {{ o.title }} — <a href="/download?url={{ o.url|urlencode }}">Download</a> | <a href="{{ o.url }}" target="_blank">Open</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No orders or PDF links found on the page.</p>
+  {% endif %}
+
+  <p><a href="/">Back to search</a></p>
+{% endblock %}

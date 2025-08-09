@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <form method="post" action="/search">
+    <label>Case Type
+      <!-- Changed from dropdown to free text input to allow any input -->
+      <input type="text" name="case_type" placeholder="e.g., CIVIL, W.P.(CRL), BAIL APPLN." required>
+    </label>
+    <label>Case Number <input name="case_number" placeholder="e.g., 123" required></label>
+    <label>Filing Year <input name="filing_year" placeholder="e.g., 2023" required></label>
+    <button type="submit">Fetch</button>
+  </form>
+{% endblock %}
